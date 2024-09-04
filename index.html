@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paint.js</title>
     <style>
         *,
@@ -21,14 +21,53 @@
         }
 
         h1 {
-            color: #fce300;
             font-size: 12px;
-            font-weight: 600;
-
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 4px;
+
+            margin: 0 0 0 5px;
+        }
+
+        .botonesWin {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-windows95 {
+            width: 20px;
+            height: 20px;
+            background-color: #c0c0c0;
+            color: black;
+            border: 2px solid #fff;
+            border-right-color: #404040;
+            border-bottom-color: #404040;
+            border-left-color: #808080;
+            border-top-color: #808080;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-windows95:active {
+            border: 2px solid #404040;
+            border-left-color: #fff;
+            border-top-color: #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+        }
+
+        .barraTitulo {
+            background: #01007f;
+            padding: 5px 5px 5px 0px;
+            border-top: 2px solid silver;
+            border-right: 2px solid silver;
+            border-left: 2px solid silver;
+            display: flex;
+            justify-content: space-between;
+            color: silver;
+            font-weight: 600;
 
             img {
                 width: 16px;
@@ -50,10 +89,7 @@
                 background: transparent;
 
                 &:hover {
-                    box-shadow:
-                        1px 1px black,
-                        inset -1px -1px gray,
-                        inset 1px 1px white;
+                    box-shadow: 1px 1px black, inset -1px -1px gray, inset 1px 1px white;
                 }
             }
         }
@@ -86,7 +122,7 @@
                 width: 24px;
                 height: 24px;
 
-                background: #bdbdbd url('./icons/draw.png') no-repeat center;
+                background: #bdbdbd url("./icons/draw.png") no-repeat center;
 
                 border: 1px solid #eee;
                 border-right-color: #000;
@@ -102,25 +138,25 @@
         }
 
         #erase-btn {
-            background-image: url('./icons/erase.png');
+            background-image: url("./icons/erase.png");
         }
 
         #rectangle-btn {
-            background-image: url('./icons/rectangle.png');
+            background-image: url("./icons/rectangle.png");
         }
 
         #ellipse-btn {
-            background-image: url('./icons/ellipse.png');
+            background-image: url("./icons/ellipse.png");
         }
 
         #clear-btn {
-            background-image: url('./icons/trash.png');
+            background-image: url("./icons/trash.png");
             background-size: 18px;
         }
 
         .container {
-            border: 1px solid #808080;
             display: grid;
+            border-right: 15px solid silver;
             grid-template-areas:
                 "header header header"
                 "aside main main"
@@ -130,24 +166,24 @@
     <script type="module">
         //Constants
         const MODES = {
-            DRAW: 'draw',
-            ERASE: 'erase',
-            RECTANGLE: 'rectangle',
-            ELLIPSE: 'ellipse',
-        }
+            DRAW: "draw",
+            ERASE: "erase",
+            RECTANGLE: "rectangle",
+            ELLIPSE: "ellipse",
+        };
 
         //utilities
-        const $ = selector => document.querySelector(selector);
-        const $$ = selector => document.querySelector(selector);
+        const $ = (selector) => document.querySelector(selector);
+        const $$ = (selector) => document.querySelector(selector);
 
         //Elements
-        const $canvas = $('#canvas');
-        const $colorPicker = $('#color-picker');
-        const $clearBtn = $('#clear-btn');
-        const $drawBtn = $('#draw-btn');
-        const $rectangleBtn = $('#rectangle-btn');
-        const $eraseBtn = $('#erase-btn');
-        const ctx = $canvas.getContext('2d');
+        const $canvas = $("#canvas");
+        const $colorPicker = $("#color-picker");
+        const $clearBtn = $("#clear-btn");
+        const $drawBtn = $("#draw-btn");
+        const $rectangleBtn = $("#rectangle-btn");
+        const $eraseBtn = $("#erase-btn");
+        const ctx = $canvas.getContext("2d");
 
         //State
         let isDrawing = false;
@@ -158,26 +194,25 @@
         let imageData;
 
         //Events
-        $canvas.addEventListener('mousedown', startDrawing);
-        $canvas.addEventListener('mousemove', draw);
-        $canvas.addEventListener('mouseup', stopDrawing);
-        $canvas.addEventListener('mouseleave', stopDrawing);
+        $canvas.addEventListener("mousedown", startDrawing);
+        $canvas.addEventListener("mousemove", draw);
+        $canvas.addEventListener("mouseup", stopDrawing);
+        $canvas.addEventListener("mouseleave", stopDrawing);
 
-        $colorPicker.addEventListener('change', handleChangeColor);
-        $clearBtn.addEventListener('click', clearCanvas)
+        $colorPicker.addEventListener("change", handleChangeColor);
+        $clearBtn.addEventListener("click", clearCanvas);
 
-        $drawBtn.addEventListener('click', () => {
+        $drawBtn.addEventListener("click", () => {
             setMode(MODES.DRAW);
         });
 
-        $rectangleBtn.addEventListener('click', () => {
+        $rectangleBtn.addEventListener("click", () => {
             setMode(MODES.RECTANGLE);
         });
 
-        $eraseBtn.addEventListener('click', () => {
+        $eraseBtn.addEventListener("click", () => {
             setMode(MODES.ERASE);
         });
-
 
         //Metods
         function startDrawing(event) {
@@ -244,45 +279,50 @@
         function setMode(newMode) {
             mode = newMode;
             //limpia el boton activo
-            $('button.active')?.classList.remove('active');
+            $("button.active")?.classList.remove("active");
 
             if (mode === MODES.DRAW) {
-                $drawBtn.classList.add('active');
-                canvas.style.cursor = 'url(./cursors/pincel.png) 0 24, auto';
-                ctx.globalCompositeOperation = 'source-over';
+                $drawBtn.classList.add("active");
+                canvas.style.cursor = "url(./cursors/pincel.png) 0 24, auto";
+                ctx.globalCompositeOperation = "source-over";
                 ctx.lineWidth = 1;
                 return;
             }
 
             if (mode === MODES.RECTANGLE) {
-                $rectangleBtn.classList.add('active');
-                canvas.style.cursor = 'url(./cursors/point.png), auto';
-                ctx.globalCompositeOperation = 'source-over';
+                $rectangleBtn.classList.add("active");
+                canvas.style.cursor = "url(./cursors/point.png), auto";
+                ctx.globalCompositeOperation = "source-over";
                 ctx.lineWidth = 2;
                 return;
             }
 
             if (mode === MODES.ERASE) {
-                $eraseBtn.classList.add('active');
-                canvas.style.cursor = 'url(./cursors/erase.png) 0 20, auto';
-                ctx.globalCompositeOperation = 'destination-out';
+                $eraseBtn.classList.add("active");
+                canvas.style.cursor = "url(./cursors/erase.png) 0 20, auto";
+                ctx.globalCompositeOperation = "destination-out";
                 ctx.lineWidth = 20;
                 return;
             }
-
         }
-    
+
         //Init
         setMode(MODES.DRAW);
-        $colorPicker.value = '#000000';
+        $colorPicker.value = "#000000";
     </script>
 </head>
 
 <body>
-    <h1>
-        <img src="icon.png" alt="">
-        paint by rodri.reburdo
-    </h1>
+    <div class="barraTitulo">
+        <h1>
+            <img src="icon.png" alt="" />
+            paint by rodri.reburdo
+        </h1>
+        <div class="botonesWin">
+            <button class="btn-windows95">_</button>
+            <button class="btn-windows95">x</button>
+        </div>
+    </div>
 
     <div class="container">
         <header>
@@ -309,8 +349,9 @@
         </main>
 
         <footer>
-            <input type="color" id="color-picker" value="#000000">
+            <input type="color" id="color-picker" value="#000000" />
         </footer>
     </div>
 </body>
+
 </html>
