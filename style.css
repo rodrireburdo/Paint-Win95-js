@@ -1,0 +1,161 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #222;
+    padding: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin: 0 0 0 5px;
+}
+
+.botonesWin {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-windows95 {
+    width: 15px;
+    height: 15px;
+    background-color: #c0c0c0;
+    color: black;
+    border: 2px solid #fff;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+    border-left-color: #808080;
+    border-top-color: #808080;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 0 3px 0; 
+    line-height: 0px;
+    text-align: center;
+}
+
+#_ {
+    padding: 0 0 8px 0; 
+}
+
+.btn-windows95:active {
+    border: 2px solid #404040;
+    border-left-color: #fff;
+    border-top-color: #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+}
+
+.barraTitulo {
+    background: #01007f;
+    padding: 5px 5px 5px 0px;
+    border-top: 2px solid silver;
+    border-right: 2px solid silver;
+    border-left: 2px solid silver;
+    display: flex;
+    justify-content: space-between;
+    color: silver;
+    font-weight: 600;
+
+    img {
+        width: 16px;
+        height: auto;
+    }
+}
+
+canvas {
+    background: #fff;
+}
+
+header {
+    background: silver;
+    grid-area: header;
+    padding: 2px;
+
+    button {
+        border: 0;
+        background: transparent;
+
+        &:hover {
+            box-shadow: 1px 1px black, inset -1px -1px gray, inset 1px 1px white;
+        }
+    }
+}
+
+main {
+    grid-area: main;
+    padding: 16px;
+}
+
+footer {
+    background: silver;
+    grid-area: footer;
+    padding: 4px;
+}
+
+aside {
+    background: silver;
+    grid-area: aside;
+    width: 52px;
+    padding-top: 2px;
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1px;
+        justify-content: center;
+    }
+
+    button {
+        width: 24px;
+        height: 24px;
+
+        background: #bdbdbd url("./icons/draw.png") no-repeat center;
+
+        border: 1px solid #eee;
+        border-right-color: #000;
+        border-bottom-color: #000;
+
+        &.active {
+            background-color: #eee;
+            border: 1px solid #000;
+            border-right-color: #eee;
+            border-bottom-color: #eee;
+        }
+    }
+}
+
+#erase-btn {
+    background-image: url("./icons/erase.png");
+}
+
+#rectangle-btn {
+    background-image: url("./icons/rectangle.png");
+}
+
+#ellipse-btn {
+    background-image: url("./icons/ellipse.png");
+}
+
+#clear-btn {
+    background-image: url("./icons/trash.png");
+    background-size: 18px;
+}
+
+.container {
+    display: grid;
+    border-right: 15px solid silver;
+    grid-template-areas:
+        "header header header"
+        "aside main main"
+        "footer footer footer";
+}
