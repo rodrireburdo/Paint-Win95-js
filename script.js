@@ -4,6 +4,7 @@ const MODES = {
     ERASE: "erase",
     RECTANGLE: "rectangle",
     ELLIPSE: "ellipse",
+    LINE: "line",
 };
 
 // Utilities
@@ -18,6 +19,7 @@ const $drawBtn = $("#draw-btn");
 const $rectangleBtn = $("#rectangle-btn");
 const $ellipseBtn = $("#ellipse-btn");
 const $eraseBtn = $("#erase-btn");
+const $lineBtn = $("#line-btn");
 const ctx = $canvas.getContext("2d");
 
 // State
@@ -51,6 +53,10 @@ $ellipseBtn.addEventListener("click", () => {
 
 $eraseBtn.addEventListener("click", () => {
     setMode(MODES.ERASE);
+});
+
+$lineBtn.addEventListener("click", () => {
+    setMode(MODES.LINE);
 });
 
 // Methods
@@ -114,6 +120,15 @@ function draw(event) {
         ctx.stroke();
         return;
     }
+
+    if (mode === MODES.LINE) {
+        ctx.putImageData(imageData, 0, 0); 
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(offsetX, offsetY);
+        ctx.stroke();
+        return;
+    }
 }
 
 function stopDrawing() {
@@ -163,6 +178,15 @@ function setMode(newMode) {
         canvas.style.cursor = "url(./cursors/erase.png) 0 20, auto";
         ctx.globalCompositeOperation = "destination-out";
         ctx.lineWidth = 15;
+        return;
+    }
+
+    if (mode === MODES.LINE) {
+        $lineBtn.classList.add("active");
+        canvas.style.cursor = "url(./cursors/point.png)";
+
+        ctx.globalCompositeOperation = "source-over";
+        ctx.lineWidth = 1;
         return;
     }
 }

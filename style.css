@@ -119,7 +119,7 @@ aside {
         width: 24px;
         height: 24px;
 
-        background: #bdbdbd url("./icons/draw.png") no-repeat center;
+        background: #bdbdbd no-repeat center;
 
         border: 1px solid #eee;
         border-right-color: #000;
@@ -132,6 +132,10 @@ aside {
             border-bottom-color: #eee;
         }
     }
+}
+
+#draw-btn {
+    background-image: url("./icons/draw.png");
 }
 
 #erase-btn {
